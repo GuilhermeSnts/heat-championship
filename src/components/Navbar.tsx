@@ -9,7 +9,7 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-linear-to-r from-red-700 to-red-900 text-white shadow-lg">
+    <nav className="bg-linear-to-r from-rose-800 to-rose-900 text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
@@ -22,6 +22,9 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <Link href="/" className="hover:text-red-200 transition-colors">
               Classificação
+            </Link>
+            <Link href="/regras" className="hover:text-red-200 transition-colors">
+              Regras
             </Link>
             {isAdmin && (
               <Link
@@ -87,6 +90,13 @@ export function Navbar() {
               onClick={() => setMenuOpen(false)}
             >
               🏆 Classificação
+            </Link>
+            <Link
+              href="/regras"
+              className="hover:text-red-200 transition-colors"
+              onClick={() => setMenuOpen(false)}
+            >
+              📋 Regras
             </Link>
             {isAdmin && (
               <Link

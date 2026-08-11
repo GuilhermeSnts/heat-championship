@@ -31,7 +31,18 @@ function AdminPlayers() {
   };
 
   useEffect(() => {
-    loadPlayers();
+    let ignore = false;
+
+    getPlayers().then((p) => {
+      if (!ignore) {
+        setPlayers(p);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const activePlayers = players.filter((p) => p.active);
@@ -86,7 +97,6 @@ function AdminPlayers() {
           <PlayerForm
             onSubmit={handleCreate}
             onCancel={() => setShowForm(false)}
-            existingCount={activePlayers.length}
           />
         </div>
       )}
@@ -101,7 +111,6 @@ function AdminPlayers() {
             player={editingPlayer}
             onSubmit={handleUpdate}
             onCancel={() => setEditingPlayer(null)}
-            existingCount={activePlayers.length}
           />
         </div>
       )}

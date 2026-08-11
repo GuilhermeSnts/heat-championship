@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Player, Race } from "@/lib/types";
 import {
   getPlayers,
@@ -11,7 +11,6 @@ import {
 } from "@/lib/firestore";
 import { AdminGuard } from "@/components/AdminGuard";
 import { RaceForm } from "@/components/RaceForm";
-import Link from "next/link";
 
 export default function AdminRacesPage() {
   return (
@@ -28,16 +27,20 @@ function AdminRaces() {
   const [showForm, setShowForm] = useState(false);
   const [editingRace, setEditingRace] = useState<Race | null>(null);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     const [p, r] = await Promise.all([getPlayers(), getRaces()]);
     setPlayers(p.filter((pl) => pl.active));
     setRaces(r);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    const initialize = async () => {
+      await loadData();
+    };
+
+    void initialize();
+  }, [loadData]);
 
   const handleCreate = async (
     date: Date,

@@ -7,21 +7,18 @@ interface PlayerFormProps {
   player?: Player;
   onSubmit: (name: string) => Promise<void>;
   onCancel: () => void;
-  existingCount: number;
 }
 
 export function PlayerForm({
   player,
   onSubmit,
   onCancel,
-  existingCount,
 }: PlayerFormProps) {
   const [name, setName] = useState(player?.name || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   const isNew = !player;
-  const atMax = isNew && existingCount >= 6;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,12 +55,6 @@ export function PlayerForm({
         />
       </div>
 
-      {atMax && (
-        <p className="text-amber-600 text-sm">
-          ⚠️ Limite de 6 jogadores ativos atingido. Desative um jogador existente
-          antes de criar um novo.
-        </p>
-      )}
 
       {error && (
         <p className="text-red-600 text-sm bg-red-50 p-2 rounded">{error}</p>
@@ -72,7 +63,7 @@ export function PlayerForm({
       <div className="flex gap-3">
         <button
           type="submit"
-          disabled={saving || (atMax && isNew)}
+          disabled={saving || isNew}
           className="flex-1 bg-red-700 hover:bg-red-800 disabled:bg-gray-400 text-white py-3 rounded-lg font-medium transition-colors"
         >
           {saving ? "Salvando..." : isNew ? "Criar Jogador" : "Salvar"}

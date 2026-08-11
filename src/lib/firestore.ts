@@ -14,7 +14,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { db } from "./firebase";
-import { Player, Race, RaceParticipant, AppUser, MAX_PLAYERS, getPointsForPosition } from "./types";
+import { Player, Race, RaceParticipant, AppUser, getPointsForPosition } from "./types";
 
 // ============ Players ============
 
@@ -49,11 +49,6 @@ export async function getPlayer(id: string): Promise<Player | null> {
 }
 
 export async function createPlayer(name: string): Promise<string> {
-  const players = await getPlayers();
-  const activeCount = players.filter((p) => p.active).length;
-  if (activeCount >= MAX_PLAYERS) {
-    throw new Error(`Máximo de ${MAX_PLAYERS} jogadores ativos permitido.`);
-  }
   const ref = await addDoc(collection(db, "players"), {
     name: name.trim(),
     active: true,

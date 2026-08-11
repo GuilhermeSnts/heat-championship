@@ -48,9 +48,9 @@ export default function HomePage() {
       {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
-          🏎️ Campeonato de Heat
+          GRAND PRIX HEAT
         </h1>
-        <p className="text-lg text-gray-500">A disputa da família</p>
+        <p className="text-lg text-gray-500">Grande prêmio de 2026</p>
       </div>
 
       {/* Podium */}
