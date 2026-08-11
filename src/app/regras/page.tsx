@@ -1,4 +1,5 @@
 import { POINTS_TABLE } from "@/lib/types";
+import Image from "next/image";
 
 export default function RulesPage() {
   const sortedPositions = Object.entries(POINTS_TABLE)
@@ -8,6 +9,11 @@ export default function RulesPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-900 mb-8">📋 Regras do Campeonato</h1>
+
+      <div className="w-full flex align-middle justify-center">
+        <Image src="/cat_running.png" alt="Logo" width={250} height={150} />
+      </div>
+
 
       {/* Scoring Rules Section */}
       <section className="mb-12">
@@ -70,6 +76,7 @@ export default function RulesPage() {
         <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600">
           ✅ Regra de Elegibilidade
         </h2>
+        
 
         <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-600 rounded-lg p-6 mb-6">
           <h3 className="text-xl font-bold text-green-900 mb-4">Status OFICIAL</h3>

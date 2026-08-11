@@ -47,7 +47,7 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="w-full flex align-middle justify-center"><Image src="/dog_flag.png" alt="Logo" width={200} height={100} /></div>
+      <div className="w-full flex align-middle justify-center"><Image src="/dog_flag.png" alt="Logo" width={300} height={200} /></div>
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
           GRAND PRIX HEAT
@@ -93,6 +93,8 @@ export default function HomePage() {
         )}
       </div>
 
+
+
       {/* Last race highlight */}
       {lastRace && (
         <div className="bg-linear-to-r from-red-50 to-amber-50 rounded-xl border border-red-200 p-4 mb-8">
@@ -104,6 +106,10 @@ export default function HomePage() {
           </p>
         </div>
       )}
+
+      <div className="w-full flex align-middle justify-center">
+        <Image src="/cat_running.png" alt="Logo" width={250} height={150} />
+      </div>
 
       {/* Standings */}
       <h2 className="text-2xl font-bold text-gray-900 mb-4">🏆 Classificação</h2>
