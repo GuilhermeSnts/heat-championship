@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "🏎️ Campeonato de Heat",
+  title: "Campeonato de Heat",
   description: "A disputa da família - Campeonato de Heat: Pedal to the Metal",
 };
 

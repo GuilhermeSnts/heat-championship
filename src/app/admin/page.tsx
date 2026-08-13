@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Users, Flag, Clipboard, Settings, Award } from "lucide-react";
 import Link from "next/link";
 import { Player, Race } from "@/lib/types";
 import { getPlayers, getRaces } from "@/lib/firestore";
@@ -44,8 +45,8 @@ function AdminDashboard() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-extrabold text-gray-900 mb-8">
-        ⚙️ Painel Administrativo
+      <h1 className="text-3xl font-extrabold text-gray-900 mb-8 flex items-center gap-2">
+        <Settings className="w-6 h-6" /> Painel Administrativo
       </h1>
 
       {/* Quick stats */}
@@ -89,7 +90,7 @@ function AdminDashboard() {
           className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:border-red-300 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <span className="text-3xl">👥</span>
+            <span className="text-3xl"><Users className="w-8 h-8" /></span>
             <div>
               <h2 className="text-xl font-bold text-gray-900 group-hover:text-red-700 transition-colors">
                 Jogadores
@@ -105,7 +106,7 @@ function AdminDashboard() {
           className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:border-red-300 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <span className="text-3xl">🏁</span>
+            <span className="text-3xl"><Flag className="w-8 h-8" /></span>
             <div>
               <h2 className="text-xl font-bold text-gray-900 group-hover:text-red-700 transition-colors">
                 Partidas
@@ -122,8 +123,8 @@ function AdminDashboard() {
       {races.length > 0 && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-900">
-              📋 Últimas Partidas
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <Clipboard className="w-5 h-5" /> Últimas Partidas
             </h2>
             <Link
               href="/admin/partidas"
@@ -151,8 +152,8 @@ function AdminDashboard() {
                       {new Intl.DateTimeFormat("pt-BR").format(race.date)}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-600">
-                    🥇 {winnerName || "—"} • {race.participants.length} jogadores
+                  <div className="text-sm text-gray-600 flex items-center gap-2">
+                    <Award className="w-4 h-4 text-yellow-400" /> {winnerName || "—"} • {race.participants.length} jogadores
                   </div>
                 </div>
               );

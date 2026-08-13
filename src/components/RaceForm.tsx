@@ -2,13 +2,15 @@
 
 import { useState, useMemo } from "react";
 import { Player, Race, getPointsForPosition } from "@/lib/types";
+import { Award, Trash } from "lucide-react";
 
 interface RaceFormProps {
   players: Player[];
   race?: Race;
   onSubmit: (
     date: Date,
-    participants: { playerId: string; position: number }[]
+    participants: { playerId: string; position: number; carColor?: string }[],
+    map?: "USA" | "ITALIA" | "FRANÇA" | "INGLATERRA"
   ) => Promise<void>;
   onCancel: () => void;
   onDelete?: () => void;
@@ -47,6 +49,19 @@ export function RaceForm({
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [map, setMap] = useState<"USA" | "ITALIA" | "FRANÇA" | "INGLATERRA">(
+    (race?.map as any) || "USA"
+  );
+
+  const [colors, setColors] = useState<Record<string, string>>(() => {
+    const c: Record<string, string> = {};
+    if (race) {
+      for (const p of race.participants) {
+        if ((p as any).carColor) c[p.playerId] = (p as any).carColor;
+      }
+    }
+    return c;
+  });
 
   const togglePlayer = (playerId: string) => {
     setSelectedPlayers((prev) => {
@@ -71,6 +86,7 @@ export function RaceForm({
         ...p,
         [playerId]: next.length,
       }));
+      setColors((c) => ({ ...c, [playerId]: c[playerId] || "azul" }));
       return next;
     });
   };
@@ -123,8 +139,9 @@ export function RaceForm({
       const participants = selectedPlayers.map((pid) => ({
         playerId: pid,
         position: positions[pid],
+        carColor: colors[pid] || "azul",
       }));
-      await onSubmit(new Date(date + "T12:00:00"), participants);
+      await onSubmit(new Date(date + "T12:00:00"), participants, map);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erro ao salvar.");
     } finally {
@@ -172,6 +189,21 @@ export function RaceForm({
         </div>
       </div>
 
+      {/* Map selection */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Mapa</label>
+        <select
+          value={map}
+          onChange={(e) => setMap(e.target.value as any)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+        >
+          <option value="USA">USA</option>
+          <option value="ITALIA">ITALIA</option>
+          <option value="FRANÇA">FRANÇA</option>
+          <option value="INGLATERRA">INGLATERRA</option>
+        </select>
+      </div>
+
       {/* Position ordering */}
       {selectedPlayers.length > 0 && (
         <div>
@@ -189,9 +221,26 @@ export function RaceForm({
                   className="flex items-center gap-3 bg-gray-50 rounded-lg p-3"
                 >
                   <span className="text-lg font-bold text-gray-400 w-8">
-                    {getPositionEmoji(pos)}º
+                    {getPositionEmoji(pos)}
                   </span>
                   <span className="flex-1 font-medium">{player?.name}</span>
+                  <div className="w-36">
+                    <label className="block text-xs text-gray-500">Cor do carro</label>
+                    <select
+                      value={colors[playerId] || "azul"}
+                      onChange={(e) =>
+                        setColors((c) => ({ ...c, [playerId]: e.target.value }))
+                      }
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                    >
+                      <option value="azul">Azul</option>
+                      <option value="cinza">Cinza</option>
+                      <option value="preto">Preto</option>
+                      <option value="vermelho">Vermelho</option>
+                      <option value="amarelo">Amarelo</option>
+                      <option value="verde">Verde</option>
+                    </select>
+                  </div>
                   <select
                     value={pos}
                     onChange={(e) =>
@@ -239,7 +288,7 @@ export function RaceForm({
 
       {race && onDelete && (
         <div className="pt-4 border-t border-gray-200">
-          <button
+            <button
             type="button"
             onClick={() => {
               if (confirm("Tem certeza que deseja excluir esta partida?")) {
@@ -248,7 +297,7 @@ export function RaceForm({
             }}
             className="text-red-600 hover:text-red-800 text-sm font-medium"
           >
-            🗑️ Excluir partida
+            <Trash className="inline w-4 h-4 mr-1" /> Excluir partida
           </button>
         </div>
       )}
@@ -257,8 +306,8 @@ export function RaceForm({
 }
 
 function getPositionEmoji(pos: number) {
-  if (pos === 1) return "🥇";
-  if (pos === 2) return "🥈";
-  if (pos === 3) return "🥉";
-  return pos;
+  if (pos === 1) return <Award className="w-5 h-5 text-yellow-400" />;
+  if (pos === 2) return <Award className="w-5 h-5 text-slate-400" />;
+  if (pos === 3) return <Award className="w-5 h-5 text-amber-700" />;
+  return <span>{pos}º</span>;
 }

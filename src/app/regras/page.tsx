@@ -1,5 +1,6 @@
 import { POINTS_TABLE } from "@/lib/types";
 import Image from "next/image";
+import { Award, Lightbulb } from "lucide-react";
 
 export default function RulesPage() {
   const sortedPositions = Object.entries(POINTS_TABLE)
@@ -8,17 +9,19 @@ export default function RulesPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-gray-900 mb-8">📋 Regras do Campeonato</h1>
+      <h1 className="text-4xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+        Regras do Campeonato
+      </h1>
 
       <div className="w-full flex align-middle justify-center">
-        <Image src="/cat_running.png" alt="Logo" width={250} height={150} />
+        <Image src="/cat_running.png" alt="Logo" width={200} height={100} />
       </div>
 
 
       {/* Scoring Rules Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600">
-          🏁 Sistema de Pontuação
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600 flex items-center gap-2">
+          Sistema de Pontuação
         </h2>
         
         <p className="text-gray-700 mb-6">
@@ -43,9 +46,15 @@ export default function RulesPage() {
                   }
                 >
                   <td className="px-6 py-4 text-gray-800">
-                    {row.position === 1 && "🥇 1º lugar"}
-                    {row.position === 2 && "🥈 2º lugar"}
-                    {row.position === 3 && "🥉 3º lugar"}
+                    {row.position === 1 && (
+                      <span className="inline-flex items-center gap-2"><Award className="w-4 h-4 text-yellow-400" />1º lugar</span>
+                    )}
+                    {row.position === 2 && (
+                      <span className="inline-flex items-center gap-2"><Award className="w-4 h-4 text-slate-400" />2º lugar</span>
+                    )}
+                    {row.position === 3 && (
+                      <span className="inline-flex items-center gap-2"><Award className="w-4 h-4 text-amber-700" />3º lugar</span>
+                    )}
                     {row.position > 3 && `${row.position}º lugar`}
                   </td>
                   <td className="px-6 py-4 text-center font-bold text-lg text-red-600">
@@ -64,9 +73,12 @@ export default function RulesPage() {
         </div>
 
         <div className="mt-6 bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-          <p className="text-blue-900">
-            <strong>💡 Dica:</strong> A média aritmética de pontos é calculada dividindo
-            o total de pontos pelo número de partidas disputadas.
+          <p className="text-blue-900 flex items-start gap-2">
+            <Lightbulb className="w-5 h-5 mt-1" />
+            <span>
+              <strong>Dica:</strong> A média aritmética de pontos é calculada dividindo
+              o total de pontos pelo número de partidas disputadas.
+            </span>
           </p>
         </div>
       </section>
@@ -74,11 +86,11 @@ export default function RulesPage() {
       {/* Eligibility Rules Section */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600">
-          ✅ Regra de Elegibilidade
+          Regra de Elegibilidade
         </h2>
         
 
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-600 rounded-lg p-6 mb-6">
+        <div className="bg-linear-to-r from-green-50 to-emerald-50 border-2 border-green-600 rounded-lg p-6 mb-6">
           <h3 className="text-xl font-bold text-green-900 mb-4">Status OFICIAL</h3>
           <p className="text-gray-800 text-lg mb-3">
             Um jogador é considerado <strong>OFICIAL</strong> quando participa de pelo menos
@@ -90,7 +102,7 @@ export default function RulesPage() {
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-600 rounded-lg p-6">
+        <div className="bg-linear-to-r from-yellow-50 to-orange-50 border-2 border-yellow-600 rounded-lg p-6">
           <h3 className="text-xl font-bold text-yellow-900 mb-4">Status PROVISÓRIO</h3>
           <p className="text-gray-800 text-lg">
             Jogadores que não atingem a participação mínima aparecem como
@@ -105,14 +117,13 @@ export default function RulesPage() {
 
       {/* Classification Rules Section */}
       <section>
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600">
-          🏆 Ordenação da Classificação
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-600 flex items-center gap-2">
+          Ordenação da Classificação
         </h2>
 
         <div className="space-y-4">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-start gap-4">
-              <span className="text-3xl">1️⃣</span>
               <div>
                 <h4 className="font-bold text-gray-800 mb-2">Jogadores Oficiais (primeiro)</h4>
                 <p className="text-gray-700">
@@ -125,7 +136,6 @@ export default function RulesPage() {
 
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-start gap-4">
-              <span className="text-3xl">2️⃣</span>
               <div>
                 <h4 className="font-bold text-gray-800 mb-2">Jogadores Provisórios (depois)</h4>
                 <p className="text-gray-700">
@@ -138,7 +148,6 @@ export default function RulesPage() {
 
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-start gap-4">
-              <span className="text-3xl">📊</span>
               <div>
                 <h4 className="font-bold text-gray-800 mb-2">Critério de Desempate</h4>
                 <p className="text-gray-700">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { Flag, Award } from "lucide-react";
 import { Player, Race } from "@/lib/types";
 import {
   getPlayers,
@@ -18,6 +19,25 @@ export default function AdminRacesPage() {
       <AdminRaces />
     </AdminGuard>
   );
+}
+
+function colorClass(color?: string) {
+  switch (color) {
+    case "azul":
+      return "bg-blue-500";
+    case "cinza":
+      return "bg-gray-500";
+    case "preto":
+      return "bg-black";
+    case "vermelho":
+      return "bg-red-600";
+    case "amarelo":
+      return "bg-yellow-400";
+    case "verde":
+      return "bg-green-500";
+    default:
+      return "bg-gray-300";
+  }
 }
 
 function AdminRaces() {
@@ -44,19 +64,21 @@ function AdminRaces() {
 
   const handleCreate = async (
     date: Date,
-    participants: { playerId: string; position: number }[]
+    participants: { playerId: string; position: number; carColor?: string }[],
+    map?: string
   ) => {
-    await createRace(date, participants);
+    await createRace(date, participants, map);
     setShowForm(false);
     await loadData();
   };
 
   const handleUpdate = async (
     date: Date,
-    participants: { playerId: string; position: number }[]
+    participants: { playerId: string; position: number; carColor?: string }[],
+    map?: string
   ) => {
     if (!editingRace) return;
-    await updateRace(editingRace.id, date, participants);
+    await updateRace(editingRace.id, date, participants, map);
     setEditingRace(null);
     await loadData();
   };
@@ -79,8 +101,8 @@ function AdminRaces() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900">
-          🏁 Partidas
+        <h1 className="text-3xl font-extrabold text-gray-900 flex items-center gap-2">
+          <Flag className="w-6 h-6" /> Partidas
         </h1>
         {!showForm && !editingRace && (
           <button
@@ -164,17 +186,23 @@ function AdminRaces() {
                         className="inline-flex items-center gap-1 text-sm"
                       >
                         <span>
-                          {p.position === 1
-                            ? "🥇"
-                            : p.position === 2
-                            ? "🥈"
-                            : p.position === 3
-                            ? "🥉"
-                            : `${p.position}º`}
+                          {p.position === 1 ? (
+                            <Award className="w-5 h-5 text-yellow-400" />
+                          ) : p.position === 2 ? (
+                            <Award className="w-5 h-5 text-slate-400" />
+                          ) : p.position === 3 ? (
+                            <Award className="w-5 h-5 text-amber-700" />
+                          ) : (
+                            `${p.position}º`
+                          )}
                         </span>
-                        <span className="font-medium">
-                          {player?.name || "—"}
-                        </span>
+                        <span className="font-medium">{player?.name || "—"}</span>
+                        {p.carColor && (
+                          <span className="inline-flex items-center gap-1 ml-1">
+                            <span className={`w-3 h-3 rounded-full ${colorClass(p.carColor)}`} />
+                            <span className="text-xs text-gray-500 capitalize">{p.carColor}</span>
+                          </span>
+                        )}
                         <span className="text-gray-400">
                           ({p.points}pts)
                         </span>
@@ -188,7 +216,7 @@ function AdminRaces() {
         })}
         {races.length === 0 && (
           <div className="text-center py-12 text-gray-500">
-            <p className="text-4xl mb-3">🏁</p>
+            <p className="text-4xl mb-3"><Flag className="w-12 h-12" /></p>
             <p>Nenhuma partida registrada.</p>
             <button
               onClick={() => setShowForm(true)}

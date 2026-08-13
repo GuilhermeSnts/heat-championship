@@ -1,4 +1,5 @@
 import { PlayerStats } from "@/lib/types";
+import { Award } from "lucide-react";
 
 interface PodiumProps {
   standings: PlayerStats[];
@@ -20,7 +21,11 @@ export function Podium({ standings }: PodiumProps) {
           "bg-linear-to-b from-yellow-400 to-yellow-600",
           "bg-amber-700",
         ];
-        const medals = ["🥈", "🥇", "🥉"];
+        const medals = [
+          <Award key="silver" className="w-6 h-6 text-slate-400" />,
+          <Award key="gold" className="w-6 h-6 text-yellow-400" />,
+          <Award key="bronze" className="w-6 h-6 text-amber-700" />,
+        ];
         const posLabels = ["2º Lugar", "1º Lugar", "3º Lugar"];
 
         if (!stats) return null;

@@ -76,6 +76,7 @@ export async function getRaces(): Promise<Race[]> {
       number: data.number,
       date: (data.date as Timestamp)?.toDate() || new Date(),
       participants: data.participants || [],
+      map: data.map || undefined,
       createdAt: (data.createdAt as Timestamp)?.toDate() || new Date(),
       updatedAt: (data.updatedAt as Timestamp)?.toDate() || new Date(),
     };
@@ -91,6 +92,7 @@ export async function getRace(id: string): Promise<Race | null> {
     number: data.number,
     date: (data.date as Timestamp)?.toDate() || new Date(),
     participants: data.participants || [],
+    map: data.map || undefined,
     createdAt: (data.createdAt as Timestamp)?.toDate() || new Date(),
     updatedAt: (data.updatedAt as Timestamp)?.toDate() || new Date(),
   } as Race;
@@ -98,7 +100,8 @@ export async function getRace(id: string): Promise<Race | null> {
 
 export async function createRace(
   date: Date,
-  participants: { playerId: string; position: number }[]
+  participants: { playerId: string; position: number; carColor?: string }[],
+  map?: string
 ): Promise<string> {
   const races = await getRaces();
   const nextNumber = races.length > 0 ? Math.max(...races.map((r) => r.number)) + 1 : 1;
@@ -107,12 +110,14 @@ export async function createRace(
     playerId: p.playerId,
     position: p.position,
     points: getPointsForPosition(p.position),
+    carColor: (p as any).carColor || undefined,
   }));
 
   const ref = await addDoc(collection(db, "races"), {
     number: nextNumber,
     date: Timestamp.fromDate(date),
     participants: raceParticipants,
+    map: map || undefined,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -122,17 +127,20 @@ export async function createRace(
 export async function updateRace(
   id: string,
   date: Date,
-  participants: { playerId: string; position: number }[]
+  participants: { playerId: string; position: number; carColor?: string }[],
+  map?: string
 ): Promise<void> {
   const raceParticipants: RaceParticipant[] = participants.map((p) => ({
     playerId: p.playerId,
     position: p.position,
     points: getPointsForPosition(p.position),
+    carColor: (p as any).carColor || undefined,
   }));
 
   await updateDoc(doc(db, "races", id), {
     date: Timestamp.fromDate(date),
     participants: raceParticipants,
+    map: map || undefined,
     updatedAt: serverTimestamp(),
   });
 }

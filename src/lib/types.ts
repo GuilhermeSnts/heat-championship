@@ -10,6 +10,7 @@ export interface RaceParticipant {
   playerName?: string;
   position: number;
   points: number;
+  carColor?: "azul" | "cinza" | "preto" | "vermelho" | "amarelo" | "verde";
 }
 
 export interface Race {
@@ -19,6 +20,7 @@ export interface Race {
   participants: RaceParticipant[];
   createdAt: Date;
   updatedAt: Date;
+  map?: "USA" | "ITALIA" | "FRANÇA" | "INGLATERRA";
 }
 
 export interface PlayerStats {

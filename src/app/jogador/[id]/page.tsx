@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Trophy, Award, Clipboard, AlertCircle } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Player, Race } from "@/lib/types";
@@ -43,7 +44,7 @@ export default function PlayerPage() {
   if (!player) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <p className="text-4xl mb-4">😕</p>
+        <p className="text-4xl mb-4"><AlertCircle className="w-12 h-12 mx-auto text-gray-400" /></p>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Jogador não encontrado
         </h1>
@@ -125,26 +126,26 @@ export default function PlayerPage() {
       {/* Podium stats */}
       {stats && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">
-            🏆 Desempenho
+          <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <Trophy className="w-5 h-5" /> Desempenho
           </h2>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-3xl mb-1">🥇</div>
+              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-yellow-400" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.firstPlaces}
               </div>
               <div className="text-xs text-gray-500">Vitórias</div>
             </div>
             <div>
-              <div className="text-3xl mb-1">🥈</div>
+              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-slate-400" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.secondPlaces}
               </div>
               <div className="text-xs text-gray-500">2º lugares</div>
             </div>
             <div>
-              <div className="text-3xl mb-1">🥉</div>
+              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-amber-700" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.thirdPlaces}
               </div>
@@ -157,8 +158,8 @@ export default function PlayerPage() {
       {/* Race history */}
       {history.length > 0 && (
         <>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
-            📋 Histórico de Partidas
+          <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <Clipboard className="w-5 h-5" /> Histórico de Partidas
           </h2>
           <div className="space-y-3">
             {history.map(({ race, position, points }) => (

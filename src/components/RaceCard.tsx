@@ -2,6 +2,7 @@
 
 import { Race, Player } from "@/lib/types";
 import { useState } from "react";
+import { Award } from "lucide-react";
 
 interface RaceCardProps {
   race: Race;
@@ -9,10 +10,10 @@ interface RaceCardProps {
 }
 
 function getPositionEmoji(pos: number) {
-  if (pos === 1) return "🥇";
-  if (pos === 2) return "🥈";
-  if (pos === 3) return "🥉";
-  return `${pos}º`;
+  if (pos === 1) return <Award className="w-5 h-5 text-yellow-400" />;
+  if (pos === 2) return <Award className="w-5 h-5 text-slate-400" />;
+  if (pos === 3) return <Award className="w-5 h-5 text-amber-700" />;
+  return <span>{pos}º</span>;
 }
 
 function formatDate(date: Date) {
@@ -45,9 +46,12 @@ export function RaceCard({ race, players }: RaceCardProps) {
           <span className="font-bold text-gray-900">
             Partida #{race.number}
           </span>
-          <span className="text-gray-500 text-sm ml-3">
-            {formatDate(race.date)}
-          </span>
+          <div className="flex items-center gap-3 mt-1">
+            <span className="text-gray-500 text-sm">{formatDate(race.date)}</span>
+            {race.map && (
+              <span className="text-xs text-gray-600 px-2 py-1 rounded border">{race.map}</span>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-2 text-gray-400">
           <span className="text-sm">{race.participants.length} jogadores</span>
@@ -77,15 +81,17 @@ export function RaceCard({ race, players }: RaceCardProps) {
                 key={p.playerId}
                 className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <span className="text-lg">{getPositionEmoji(p.position)}</span>
-                  <span className="font-medium text-gray-900">
-                    {getPlayerName(p.playerId)}
-                  </span>
+                  <span className="font-medium text-gray-900">{getPlayerName(p.playerId)}</span>
+                  {p.carColor && (
+                    <span className="flex items-center gap-2 ml-2">
+                      <span className={`w-4 h-4 rounded-full ${colorClass(p.carColor)}`} />
+                      <span className="text-sm text-gray-600 capitalize">{p.carColor}</span>
+                    </span>
+                  )}
                 </div>
-                <span className="text-sm font-semibold text-red-700">
-                  {p.points} pts
-                </span>
+                <span className="text-sm font-semibold text-red-700">{p.points} pts</span>
               </div>
             ))}
           </div>
@@ -93,4 +99,23 @@ export function RaceCard({ race, players }: RaceCardProps) {
       )}
     </div>
   );
+}
+
+function colorClass(color?: string) {
+  switch (color) {
+    case "azul":
+      return "bg-blue-500";
+    case "cinza":
+      return "bg-gray-500";
+    case "preto":
+      return "bg-black";
+    case "vermelho":
+      return "bg-red-600";
+    case "amarelo":
+      return "bg-yellow-400";
+    case "verde":
+      return "bg-green-500";
+    default:
+      return "bg-gray-300";
+  }
 }

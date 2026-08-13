@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 
@@ -44,8 +45,8 @@ export default function LoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
-            🔐 Área Administrativa
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
+            <Lock className="w-6 h-6" /> Área Administrativa
           </h1>
           <p className="text-gray-500">
             Faça login para gerenciar o campeonato

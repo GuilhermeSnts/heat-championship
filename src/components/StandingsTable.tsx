@@ -1,6 +1,7 @@
 "use client";
 
 import { PlayerStats } from "@/lib/types";
+import { Award, Car } from "lucide-react";
 import Link from "next/link";
 
 interface StandingsTableProps {
@@ -9,17 +10,17 @@ interface StandingsTableProps {
 }
 
 function getMedal(position: number) {
-  if (position === 1) return "🥇";
-  if (position === 2) return "🥈";
-  if (position === 3) return "🥉";
-  return position;
+  if (position === 1) return <Award className="w-5 h-5 text-yellow-400" />;
+  if (position === 2) return <Award className="w-5 h-5 text-slate-400" />;
+  if (position === 3) return <Award className="w-5 h-5 text-amber-700" />;
+  return <span>{position}</span>;
 }
 
 export function StandingsTable({ standings, totalRaces }: StandingsTableProps) {
   if (standings.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
-        <p className="text-4xl mb-4">🏎️</p>
+        <p className="text-4xl mb-4"><Car className="w-12 h-12 mx-auto" /></p>
         <p className="text-lg">Nenhum jogador cadastrado ainda.</p>
         <p className="text-sm mt-2">
           Aguarde o administrador configurar o campeonato.
@@ -49,13 +50,13 @@ export function StandingsTable({ standings, totalRaces }: StandingsTableProps) {
                 Média
               </th>
               <th className="px-4 py-3 text-center text-sm font-semibold">
-                🥇
+                <Award className="w-5 h-5 text-yellow-400 mx-auto" />
               </th>
               <th className="px-4 py-3 text-center text-sm font-semibold">
-                🥈
+                <Award className="w-5 h-5 text-slate-400 mx-auto" />
               </th>
               <th className="px-4 py-3 text-center text-sm font-semibold">
-                🥉
+                <Award className="w-5 h-5 text-amber-700 mx-auto" />
               </th>
               <th className="px-4 py-3 text-center text-sm font-semibold">
                 Status
@@ -153,7 +154,11 @@ export function StandingsTable({ standings, totalRaces }: StandingsTableProps) {
                 <div className="font-medium">{stats.average.toFixed(1)}</div>
               </div>
               <div>
-                <div className="text-gray-500">🥇🥈🥉</div>
+                <div className="text-gray-500">
+                  <Award className="inline w-4 h-4 text-yellow-400" />
+                  <Award className="inline w-4 h-4 text-slate-400 ml-1" />
+                  <Award className="inline w-4 h-4 text-amber-700 ml-1" />
+                </div>
                 <div>
                   {stats.firstPlaces}/{stats.secondPlaces}/{stats.thirdPlaces}
                 </div>

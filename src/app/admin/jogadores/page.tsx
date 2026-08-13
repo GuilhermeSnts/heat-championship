@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
 import { Player } from "@/lib/types";
 import {
   getPlayers,
@@ -77,7 +78,7 @@ function AdminPlayers() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900">👥 Jogadores</h1>
+        <h1 className="text-3xl font-extrabold text-gray-900 flex items-center gap-2"><Users className="w-6 h-6" /> Jogadores</h1>
         {!showForm && !editingPlayer && (
           <button
             onClick={() => setShowForm(true)}

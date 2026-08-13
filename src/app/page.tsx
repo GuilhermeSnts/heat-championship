@@ -8,6 +8,7 @@ import { StandingsTable } from "@/components/StandingsTable";
 import { Podium } from "@/components/Podium";
 import { RaceCard } from "@/components/RaceCard";
 import Image from "next/image";
+import { Flag, Clipboard } from "lucide-react";
 
 export default function HomePage() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -47,7 +48,7 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="w-full flex align-middle justify-center"><Image src="/dog_flag.png" alt="Logo" width={300} height={200} /></div>
+      <div className="w-full flex align-middle justify-center"><Image src="/dog_flag.png" alt="Logo" width={250} height={150} /></div>
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
           GRAND PRIX HEAT
@@ -98,8 +99,8 @@ export default function HomePage() {
       {/* Last race highlight */}
       {lastRace && (
         <div className="bg-linear-to-r from-red-50 to-amber-50 rounded-xl border border-red-200 p-4 mb-8">
-          <p className="text-sm text-red-700 font-semibold mb-1">
-            🏁 Última partida: #{lastRace.number}
+          <p className="text-sm text-red-700 font-semibold mb-1 flex items-center gap-2">
+            <Flag className="w-4 h-4" /> Última partida: #{lastRace.number}
           </p>
           <p className="text-xs text-gray-500">
             {new Intl.DateTimeFormat("pt-BR").format(lastRace.date)}
@@ -108,18 +109,21 @@ export default function HomePage() {
       )}
 
       <div className="w-full flex align-middle justify-center">
-        <Image src="/cat_running.png" alt="Logo" width={250} height={150} />
+        <Image src="/trofeu.png" alt="Logo" width={200} height={100} />
       </div>
 
       {/* Standings */}
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">🏆 Classificação</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Classificação</h2>
       <StandingsTable standings={standings} totalRaces={races.length} />
 
       {/* Race history */}
       {races.length > 0 && (
         <>
-          <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">
-            📋 Histórico de Partidas
+        <div className="w-full mt-8 flex align-middle justify-center">
+          <Image src="/cat_running.png" alt="Logo" width={200} height={100} />
+        </div>
+          <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4 flex items-center gap-2">
+            <Clipboard className="w-5 h-5" /> Histórico de Partidas
           </h2>
           <div className="space-y-3">
             {races.map((race) => (
