@@ -48,7 +48,9 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="w-full flex align-middle justify-center"><Image src="/dog_flag.png" alt="Logo" width={250} height={150} /></div>
+      <div className="w-full flex align-middle justify-center">
+        <Image src="/dog_flag.png" alt="Logo" width={250} height={150} />
+      </div>
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
           GRAND PRIX HEAT

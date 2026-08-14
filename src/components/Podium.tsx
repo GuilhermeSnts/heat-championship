@@ -1,54 +1,73 @@
 import { PlayerStats } from "@/lib/types";
-import { Award } from "lucide-react";
+import Image from "next/image";
 
 interface PodiumProps {
   standings: PlayerStats[];
 }
+
+// Real image dimensions: 1124x539 (landscape). Used to keep the container's
+// aspect ratio so percentage positioning maps 1:1 onto the drawing.
+const IMG_ASPECT = "1124 / 539";
+
+// For each placement [2nd, 1st, 3rd]:
+//  - left: horizontal center of the step, in % of image width
+//  - top:  top edge of the drawing (non-white area) of that step, in % of image height
+const POSITIONS = [
+  { left: 23, top: 14 }, // 2nd place (left step)
+  { left: 53, top: -10 }, // 1st place (center step, tallest)
+  { left: 78, top: 30 }, // 3rd place (right step)
+];
+
+// Gap between the label and the top of the drawing (px).
+const GAP_PX = 20;
 
 export function Podium({ standings }: PodiumProps) {
   const top3 = standings.slice(0, 3);
 
   if (top3.length === 0) return null;
 
-  const order = [top3[1], top3[0], top3[2]].filter(Boolean); // 2nd, 1st, 3rd
+  const order = [top3[1], top3[0], top3[2]].filter(Boolean) as PlayerStats[]; // 2nd, 1st, 3rd
 
   return (
-    <div className="flex items-end justify-center gap-3 sm:gap-6 py-8">
-      {order.map((stats, idx) => {
-        const heights = ["h-24 sm:h-32", "h-32 sm:h-40", "h-20 sm:h-28"];
-        const colors = [
-          "bg-gray-300",
-          "bg-linear-to-b from-yellow-400 to-yellow-600",
-          "bg-amber-700",
-        ];
-        const medals = [
-          <Award key="silver" className="w-6 h-6 text-slate-400" />,
-          <Award key="gold" className="w-6 h-6 text-yellow-400" />,
-          <Award key="bronze" className="w-6 h-6 text-amber-700" />,
-        ];
-        const posLabels = ["2º Lugar", "1º Lugar", "3º Lugar"];
+    <div className="flex justify-center pt-10">
+      <div
+        className="relative w-[min(90vw,600px)]"
+        style={{ aspectRatio: IMG_ASPECT }}
+      >
+        <Image
+          src="/podio.png"
+          alt="Pódio"
+          fill
+          sizes="(max-width: 640px) 90vw, 600px"
+          className="pointer-events-none z-10"
+        />
 
-        if (!stats) return null;
+        {order.map((stats, idx) => {
+          if (!stats) return null;
 
-        return (
-          <div key={stats.playerId} className="flex flex-col items-center">
-            <span className="text-2xl mb-2">{medals[idx]}</span>
-            <span className="font-bold text-gray-900 text-sm sm:text-base mb-2 text-center">
-              {stats.playerName}
-            </span>
-            <span className="text-xs text-gray-500 mb-1">
-              {stats.totalPoints} pts • Média {stats.average.toFixed(1)}
-            </span>
+          const pos = POSITIONS[idx] ?? { left: 50, top: 20 };
+
+          return (
             <div
-              className={`w-20 sm:w-28 ${heights[idx]} ${colors[idx]} rounded-t-lg flex items-end justify-center pb-2`}
+              key={stats.playerId}
+              style={{
+                left: `${pos.left}%`,
+                // Anchor the label's bottom edge 20px above the drawing top.
+                // The label grows upward, so it always stays above the drawing.
+                bottom: `calc(${100 - pos.top}% - ${GAP_PX}px)`,
+              }}
+              className="absolute z-20 flex -translate-x-1/2 flex-col items-center text-center"
             >
-              <span className="text-white font-bold text-sm drop-shadow">
-                {posLabels[idx]}
+              <span className="mb-1 text-sm font-bold text-gray-900 sm:text-base">
+                {stats.playerName}
+              </span>
+              <span className="text-xs text-gray-500">
+                {stats.totalPoints} pts • Média {stats.average.toFixed(1)}
               </span>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
