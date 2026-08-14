@@ -1,4 +1,5 @@
 import { PlayerStats } from "@/lib/types";
+import { PODIUM_COLORS } from "@/lib/podiumColors";
 import Image from "next/image";
 
 interface PodiumProps {
@@ -10,12 +11,14 @@ interface PodiumProps {
 const IMG_ASPECT = "1124 / 539";
 
 // For each placement [2nd, 1st, 3rd]:
-//  - left: horizontal center of the step, in % of image width
-//  - top:  top edge of the drawing (non-white area) of that step, in % of image height
+//  - left:      horizontal center of the step, in % of image width
+//  - top:       top edge of the drawing (non-white area) of that step, in % of image height
+//  - rotate:    tilt of the label in degrees (positive = clockwise)
+//  - nameColor: color of the player's name (medal color of the placement)
 const POSITIONS = [
-  { left: 30, top: 10 }, // 2nd place (left step)
-  { left: 53, top: -10 }, // 1st place (center step, tallest)
-  { left: 78, top: 26 }, // 3rd place (right step)
+  { left: 30, top: 10, rotate: -12, nameColor: PODIUM_COLORS.silver }, // 2nd place (left step) — prata
+  { left: 53, top: -10, rotate: 0, nameColor: PODIUM_COLORS.gold }, // 1st place (center step, tallest) — ouro
+  { left: 78, top: 26, rotate: 12, nameColor: PODIUM_COLORS.bronze }, // 3rd place (right step) — bronze
 ];
 
 // Gap between the label and the top of the drawing (px).
@@ -55,10 +58,15 @@ export function Podium({ standings }: PodiumProps) {
                 // Anchor the label's bottom edge 20px above the drawing top.
                 // The label grows upward, so it always stays above the drawing.
                 bottom: `calc(${100 - pos.top}% - ${GAP_PX}px)`,
+                // Tilt the label; value is parameterized per placement in POSITIONS.
+                rotate: `${pos.rotate ?? 0}deg`,
               }}
               className="absolute z-20 flex -translate-x-1/2 flex-col items-center text-center"
             >
-              <span className="mb-1 text-sm font-bold text-gray-900 sm:text-base">
+              <span
+                className="mb-1 text-sm font-bold sm:text-base"
+                style={{ color: pos.nameColor ?? "#111827" }}
+              >
                 {stats.playerName}
               </span>
               <span className="text-xs text-gray-500">

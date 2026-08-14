@@ -79,19 +79,21 @@ export function RaceCard({ race, players }: RaceCardProps) {
             {sorted.map((p) => (
               <div
                 key={p.playerId}
-                className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between gap-3 py-2 px-3 bg-gray-50 rounded-lg"
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">{getPositionEmoji(p.position)}</span>
-                  <span className="font-medium text-gray-900">{getPlayerName(p.playerId)}</span>
+                <div className="ml-auto flex items-center justify-end gap-2 w-4">
                   {p.carColor && (
-                    <span className="flex items-center gap-2 ml-2">
-                      <span className={`w-4 h-4 rounded-full ${colorClass(p.carColor)}`} />
-                      <span className="text-sm text-gray-600 capitalize">{p.carColor}</span>
+                    <span className="flex h-5 w-5 items-center justify-center shrink-0">
+                      <span className={`block h-4 w-4 rounded-full ${colorClass(p.carColor)}`} />
                     </span>
                   )}
                 </div>
-                <span className="text-sm font-semibold text-red-700">{p.points} pts</span>
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <span className="text-lg">{getPositionEmoji(p.position)}</span>
+                  <span className="font-medium text-gray-900 truncate">{getPlayerName(p.playerId)}</span>
+                </div>
+                  <span className="text-sm font-semibold text-red-700 whitespace-nowrap w-10">{p.points} pts</span>
+
               </div>
             ))}
           </div>

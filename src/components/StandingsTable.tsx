@@ -1,5 +1,6 @@
 "use client";
 
+import { GRADIENTS } from "@/lib/podiumColors";
 import { PlayerStats } from "@/lib/types";
 import { Award, Car } from "lucide-react";
 import Link from "next/link";
@@ -16,7 +17,7 @@ function getMedal(position: number) {
   return <span>{position}</span>;
 }
 
-export function StandingsTable({ standings, totalRaces }: StandingsTableProps) {
+export function StandingsTable({ standings }: StandingsTableProps) {
   if (standings.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
@@ -35,7 +36,12 @@ export function StandingsTable({ standings, totalRaces }: StandingsTableProps) {
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-linear-to-r from-red-700 to-red-900 text-white">
+            <tr
+              className="text-white"
+              style={{
+                background: `linear-gradient(90deg, ${GRADIENTS.orangeToRed.from} 0%, ${GRADIENTS.orangeToRed.to} 100%)`,
+              }}
+            >
               <th className="px-4 py-3 text-left text-sm font-semibold">#</th>
               <th className="px-4 py-3 text-left text-sm font-semibold">
                 Jogador

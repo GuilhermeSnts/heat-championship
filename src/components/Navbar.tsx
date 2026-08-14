@@ -28,7 +28,7 @@ export function Navbar() {
   }, [menuOpen]);
 
   return (
-    <nav className="bg-linear-to-r from-rose-800 to-rose-900 text-white shadow-lg">
+    <nav className="bg-linear-to-r from-rose-800 to-orange-400 text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">

@@ -9,6 +9,7 @@ import { Podium } from "@/components/Podium";
 import { RaceCard } from "@/components/RaceCard";
 import Image from "next/image";
 import { Flag, Clipboard } from "lucide-react";
+import { GRADIENTS } from "@/lib/podiumColors";
 
 export default function HomePage() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -100,11 +101,13 @@ export default function HomePage() {
 
       {/* Last race highlight */}
       {lastRace && (
-        <div className="bg-linear-to-r from-red-50 to-amber-50 rounded-xl border border-red-200 p-4 mb-8">
-          <p className="text-sm text-red-700 font-semibold mb-1 flex items-center gap-2">
+        <div
+          className="rounded-xl shadow-sm border border-gray-200 p-4 mb-8"
+        >
+          <p className="text-sm  font-semibold mb-1 flex items-center gap-2">
             <Flag className="w-4 h-4" /> Última partida: #{lastRace.number}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs ">
             {new Intl.DateTimeFormat("pt-BR").format(lastRace.date)}
           </p>
         </div>
