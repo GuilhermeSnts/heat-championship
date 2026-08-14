@@ -14,7 +14,7 @@ export default function RulesPage() {
       </h1>
 
       <div className="w-full flex align-middle justify-center">
-        <Image src="/cat_running.png" alt="Logo" width={200} height={100} />
+        <Image src="/cat_running.png" alt="Logo" width={300} height={150} />
       </div>
 
 

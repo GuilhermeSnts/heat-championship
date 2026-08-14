@@ -125,7 +125,7 @@ export default function HomePage() {
           <Image src="/running.png" alt="Logo" width={250} height={150} />
         </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4 flex items-center gap-2">
-            <Clipboard className="w-5 h-5" /> Histórico de Partidas
+            Histórico de Partidas
           </h2>
           <div className="space-y-3">
             {races.map((race) => (

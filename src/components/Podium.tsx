@@ -13,9 +13,9 @@ const IMG_ASPECT = "1124 / 539";
 //  - left: horizontal center of the step, in % of image width
 //  - top:  top edge of the drawing (non-white area) of that step, in % of image height
 const POSITIONS = [
-  { left: 23, top: 14 }, // 2nd place (left step)
+  { left: 30, top: 10 }, // 2nd place (left step)
   { left: 53, top: -10 }, // 1st place (center step, tallest)
-  { left: 78, top: 30 }, // 3rd place (right step)
+  { left: 78, top: 26 }, // 3rd place (right step)
 ];
 
 // Gap between the label and the top of the drawing (px).
@@ -62,8 +62,12 @@ export function Podium({ standings }: PodiumProps) {
                 {stats.playerName}
               </span>
               <span className="text-xs text-gray-500">
-                {stats.totalPoints} pts • Média {stats.average.toFixed(1)}
+                {stats.totalPoints} pts
               </span>
+              <span className="text-xs text-gray-500">
+                Média {stats.average.toFixed(1)}
+              </span>
+
             </div>
           );
         })}
