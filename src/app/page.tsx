@@ -109,7 +109,7 @@ export default function HomePage() {
       )}
 
       <div className="w-full flex align-middle justify-center">
-        <Image src="/trofeu.png" alt="Logo" width={200} height={100} />
+        <Image src="/trofeu.png" alt="Logo" width={250} height={150} />
       </div>
 
       {/* Standings */}
@@ -120,7 +120,7 @@ export default function HomePage() {
       {races.length > 0 && (
         <>
         <div className="w-full mt-8 flex align-middle justify-center">
-          <Image src="/cat_running.png" alt="Logo" width={200} height={100} />
+          <Image src="/running.png" alt="Logo" width={250} height={150} />
         </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4 flex items-center gap-2">
             <Clipboard className="w-5 h-5" /> Histórico de Partidas

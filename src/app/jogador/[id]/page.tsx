@@ -7,7 +7,6 @@ import Link from "next/link";
 import { Player, Race } from "@/lib/types";
 import { getPlayers, getRaces, getPlayer } from "@/lib/firestore";
 import { getPlayerStats, getPlayerRaceHistory } from "@/lib/standings";
-import { RaceCard } from "@/components/RaceCard";
 
 export default function PlayerPage() {
   const params = useParams();
@@ -130,22 +129,22 @@ export default function PlayerPage() {
             <Trophy className="w-5 h-5" /> Desempenho
           </h2>
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-yellow-400" /></div>
+            <div className="text-center flex-col items-center">
+              <div className="text-3xl mb-1 w-full flex justify-center"><Award className="w-8 h-8 text-yellow-400" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.firstPlaces}
               </div>
               <div className="text-xs text-gray-500">Vitórias</div>
             </div>
             <div>
-              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-slate-400" /></div>
+              <div className="text-3xl mb-1  flex justify-center"><Award className="w-8 h-8 text-slate-400" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.secondPlaces}
               </div>
               <div className="text-xs text-gray-500">2º lugares</div>
             </div>
             <div>
-              <div className="text-3xl mb-1"><Award className="w-8 h-8 text-amber-700" /></div>
+              <div className="text-3xl mb-1  flex justify-center"><Award className="w-8 h-8 text-amber-700" /></div>
               <div className="text-2xl font-bold text-gray-900">
                 {stats.thirdPlaces}
               </div>
