@@ -142,7 +142,7 @@ function AdminDashboard() {
               return (
                 <div
                   key={race.id}
-                  className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between py-2 px-3 bg-white rounded-lg"
                 >
                   <div>
                     <span className="font-medium text-gray-900">

@@ -42,7 +42,7 @@ export default function RulesPage() {
                 <tr
                   key={row.position}
                   className={
-                    idx % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    idx % 2 === 0 ? "bg-white" : "bg-white"
                   }
                 >
                   <td className="px-6 py-4 text-gray-800">

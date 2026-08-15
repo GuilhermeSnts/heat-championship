@@ -26,7 +26,7 @@ function colorClass(color?: string) {
     case "azul":
       return "bg-blue-500";
     case "cinza":
-      return "bg-gray-500";
+      return "bg-white0";
     case "preto":
       return "bg-black";
     case "vermelho":
@@ -174,7 +174,7 @@ function AdminRaces() {
                   Editar
                 </button>
               </div>
-              <div className="border-t border-gray-100 px-4 py-3 bg-gray-50">
+              <div className="border-t border-gray-100 px-4 py-3 bg-white">
                 <div className="flex flex-wrap gap-3">
                   {sorted.map((p) => {
                     const player = players.find(

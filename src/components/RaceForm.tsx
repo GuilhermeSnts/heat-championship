@@ -218,7 +218,7 @@ export function RaceForm({
               return (
                 <div
                   key={playerId}
-                  className="flex items-center gap-3 bg-gray-50 rounded-lg p-3"
+                  className="flex items-center gap-3 bg-white rounded-lg p-3"
                 >
                   <span className="text-lg font-bold text-gray-400 w-8">
                     {getPositionEmoji(pos)}
@@ -280,7 +280,7 @@ export function RaceForm({
           type="button"
           onClick={onCancel}
           disabled={saving}
-          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-white transition-colors"
         >
           Cancelar
         </button>

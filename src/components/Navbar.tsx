@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAuth } from "./AuthProvider";
 import { useState, useEffect } from "react";
-import { X, Menu, Trophy, NotebookText, Settings, DoorOpen, User, Car } from "lucide-react";
+import { X, Menu, Trophy, NotebookText, Dices, Settings, DoorOpen, User, Car } from "lucide-react";
 
 export function Navbar() {
   const { user, isAdmin, logout } = useAuth();
@@ -45,6 +45,9 @@ export function Navbar() {
             <Link href="/regras" className="hover:text-red-200 transition-colors">
               Regras
             </Link>
+            <Link href="/o-jogo" className="hover:text-red-200 transition-colors">
+              O jogo
+            </Link>
             {isAdmin && (
               <Link
                 href="/admin"
@@ -56,7 +59,7 @@ export function Navbar() {
             {user ? (
               <button
                 onClick={logout}
-                className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors text-sm"
+                className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors text-sm cursor-pointer"
               >
                 Sair
               </button>
@@ -72,7 +75,7 @@ export function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
           >
 
@@ -105,7 +108,7 @@ export function Navbar() {
             <button
               onClick={() => setMenuOpen(false)}
               aria-label="Fechar menu"
-              className="p-2 rounded hover:bg-white/10"
+              className="p-2 rounded hover:bg-white/10 cursor-pointer"
             >
               <X />
             </button>
@@ -128,6 +131,15 @@ export function Navbar() {
               <NotebookText className="inline-block mr-1" size={16} />
               <span>Regras</span>
             </Link>
+            <Link
+              href="/o-jogo"
+              className="hover:text-red-200 transition-colors flex gap-2 items-center"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Dices className="inline-block mr-1" size={16} />
+              <span>O jogo</span>
+            </Link>
+
             {isAdmin && (
               <Link
                 href="/admin"
@@ -145,7 +157,7 @@ export function Navbar() {
                   logout();
                   setMenuOpen(false);
                 }}
-                className="text-left hover:text-red-200 transition-colors flex gap-2 items-center"
+                className="text-left hover:text-red-200 transition-colors flex gap-2 items-center cursor-pointer"
               >
                 <DoorOpen className="inline-block mr-1" size={16} />
                 <span>Sair</span>

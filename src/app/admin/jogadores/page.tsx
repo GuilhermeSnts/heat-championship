@@ -138,7 +138,7 @@ function AdminPlayers() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setEditingPlayer(player)}
-                  className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-white transition-colors"
                 >
                   Editar
                 </button>

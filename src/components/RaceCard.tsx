@@ -79,7 +79,7 @@ export function RaceCard({ race, players }: RaceCardProps) {
             {sorted.map((p) => (
               <div
                 key={p.playerId}
-                className="flex items-center justify-between gap-3 py-2 px-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between gap-3 py-2 px-3 bg-white rounded-lg"
               >
                 <div className="ml-auto flex items-center justify-end gap-2 w-4">
                   {p.carColor && (
@@ -108,7 +108,7 @@ function colorClass(color?: string) {
     case "azul":
       return "bg-blue-500";
     case "cinza":
-      return "bg-gray-500";
+      return "bg-white0";
     case "preto":
       return "bg-black";
     case "vermelho":

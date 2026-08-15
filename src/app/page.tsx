@@ -125,7 +125,7 @@ export default function HomePage() {
       {races.length > 0 && (
         <>
         <div className="w-full mt-8 flex align-middle justify-center">
-          <Image src="/running.png" alt="Logo" width={250} height={150} />
+          <Image src="/broken.png" alt="Logo" width={300} height={150} />
         </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4 flex items-center gap-2">
             Histórico de Partidas

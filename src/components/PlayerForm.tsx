@@ -72,7 +72,7 @@ export function PlayerForm({
           type="button"
           onClick={onCancel}
           disabled={saving}
-          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-white transition-colors"
         >
           Cancelar
         </button>

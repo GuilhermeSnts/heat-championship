@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trophy, Award, Clipboard, AlertCircle } from "lucide-react";
+import { Trophy, Award, AlertCircle } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Player, Race } from "@/lib/types";
 import { getPlayers, getRaces, getPlayer } from "@/lib/firestore";
 import { getPlayerStats, getPlayerRaceHistory } from "@/lib/standings";
+import Image from "next/image";
 
 export default function PlayerPage() {
   const params = useParams();
@@ -157,8 +158,11 @@ export default function PlayerPage() {
       {/* Race history */}
       {history.length > 0 && (
         <>
+        <div className="w-full mt-8 flex align-middle justify-center">
+          <Image src="/running.png" alt="Logo" width={300} height={150} />
+        </div>
           <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <Clipboard className="w-5 h-5" /> Histórico de Partidas
+            Histórico de Partidas
           </h2>
           <div className="space-y-3">
             {history.map(({ race, position, points }) => (
